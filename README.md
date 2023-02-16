@@ -1,7 +1,3 @@
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=kalgurn_github-rate-limits-prometheus-exporter&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=kalgurn_github-rate-limits-prometheus-exporter)
-[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=kalgurn_github-rate-limits-prometheus-exporter&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=kalgurn_github-rate-limits-prometheus-exporter)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=kalgurn_github-rate-limits-prometheus-exporter&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=kalgurn_github-rate-limits-prometheus-exporter)
-[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/github-rate-limit-prometheus-exporter)](https://artifacthub.io/packages/search?repo=github-rate-limit-prometheus-exporter)
 # Github Rate Limit Prometheus Exporter
 
 A [prometheus](https://prometheus.io/) exporter which scrapes GitHub API for the rate limits used by PAT/GitHub App.
@@ -9,6 +5,8 @@ A [prometheus](https://prometheus.io/) exporter which scrapes GitHub API for the
 Helm Chart with values and deployment can be found [here](./helm/github-rate-limits-prometheus-exporter)
 
 For the exporter to run you need to supply either a GitHub Token or a set of a GitHub App credentials, alongside with a type of authentication to use(pat/app)
+
+Fork of [kalgurn/github-rate-limits-prometheus-exporter](https://github.com/kalgurn/github-rate-limits-prometheus-exporter) that adds a health_check endpoint for kubernetes.
 
 ### The metrics can then be represented on a [grafana](https://grafana.com) dashboard
 
@@ -19,6 +17,12 @@ For the exporter to run you need to supply either a GitHub Token or a set of a G
 
 ## Docker
 
+Building locally 
+
+``` sh
+ docker build . -t grl-exporter
+```
+
 PAT
 ```sh
 docker run -d \
@@ -26,7 +30,7 @@ docker run -d \
     -e GITHUB_ACCOUNT_NAME=name_of_my_app
     -e GITHUB_TOKEN=my_token \
     -p 2112:2112 \
-    ghcr.io/kalgurn/grl-exporter:latest
+    grl-exporter:latest
 ```
 
 GitHub APP
@@ -39,5 +43,5 @@ docker run -d \
     -e GITHUB_PRIVATE_KEY_PATH=/tmp
     -v $PWD/path_to/key.pem:/tmp/key.pem
     -p 2112:2112 \
-    ghcr.io/kalgurn/grl-exporter:latest
+    grl-exporter:latest
 ```
