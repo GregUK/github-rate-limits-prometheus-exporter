@@ -53,16 +53,16 @@ jobs:
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       
-      - name: Conventional Changelog Action
-        id: changelog
-        uses: TriPSs/conventional-changelog-action@v3
-        with:
-          github-token: ${{ secrets.github_token }}
-          git-message: 'chore(release): {version}'
-          tag-prefix: 'v'
-          version-file: './version.json'
-          preset: 'conventionalcommits'
-          output-file: 'false'
+#      - name: Conventional Changelog Action
+#        id: changelog
+#        uses: TriPSs/conventional-changelog-action@v3
+#        with:
+#          github-token: ${{ secrets.github_token }}
+#          git-message: 'chore(release): {version}'
+#          tag-prefix: 'v'
+#          version-file: './version.json'
+#          preset: 'conventionalcommits'
+#          output-file: 'false'
 
       - name: Setup Go
         uses: actions/setup-go@v3
@@ -109,9 +109,9 @@ jobs:
         run: |
           echo "::set-output name=list::$(ls ./**/*.zip | jq --raw-input --slurp '.')"
 
-      - name: Release with Notes
-        uses: softprops/action-gh-release@v1
-        with:
-          body: ${{ needs.build.outputs.changelog }}
-          draft: true
-          files: ${{ fromJSON(steps.files.outputs.list) }}
+          #      - name: Release with Notes
+          #uses: softprops/action-gh-release@v1
+          #with:
+          #body: ${{ needs.build.outputs.changelog }}
+          #draft: true
+          #files: ${{ fromJSON(steps.files.outputs.list) }}
